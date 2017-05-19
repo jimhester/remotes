@@ -9,8 +9,9 @@
 package_deps(pkg, dependencies = NA, repos = getOption("repos"),
   type = getOption("pkgType"))
 
-dev_package_deps(pkg = ".", dependencies = NA, repos = getOption("repos"),
-  type = getOption("pkgType"), bioconductor = TRUE)
+dev_package_deps(pkgdir = ".", dependencies = NA,
+  repos = getOption("repos"), type = getOption("pkgType"),
+  bioconductor = TRUE)
 
 \method{update}{package_deps}(object, ..., quiet = FALSE, upgrade = TRUE)
 }

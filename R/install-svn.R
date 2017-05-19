@@ -132,7 +132,7 @@ remote_package_name.svn_remote <- function(remote, ...) {
   if (!identical(response, 0L)) {
     stop("There was a problem retrieving the current SVN revision", call. = FALSE)
   }
-  read_dcf(tmp_file)$Package
+  load_pkg_description(tmp_file)$Package
 }
 
 #' @export

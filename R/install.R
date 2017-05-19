@@ -15,8 +15,7 @@
 #'
 #' To install a package in a non-default library, use \code{\link[withr]{with_libpaths}}.
 #'
-#' @param pkg package description, can be path or package name.  See
-#'   \code{\link{as.package}} for more information
+#' @param pkgdir package directory.
 #' @param reload if \code{TRUE} (the default), will automatically reload the
 #'   package after installing.
 #' @param quick if \code{TRUE} skips docs, multiple-architectures,
@@ -60,19 +59,19 @@
 #' @seealso \code{\link{with_debug}} to install packages with debugging flags
 #'   set.
 install <-
-  function(pkg = ".", reload = TRUE, quick = FALSE, local = TRUE,
+  function(pkgdir = ".", reload = TRUE, quick = FALSE, local = TRUE,
            args = getOption("devtools.install.args"), quiet = FALSE,
            dependencies = NA, upgrade_dependencies = TRUE,
            build_vignettes = FALSE,
            keep_source = getOption("keep.source.pkgs"),
            threads = getOption("Ncpus", 1),
            force_deps = FALSE,
-           metadata = remote_metadata(as.package(pkg)),
+           metadata = remote_metadata(pkgdir),
            out_dir = NULL,
            skip_if_log_exists = FALSE,
            ...) {
 
-  pkg <- as.package(pkg)
+  desc <- load_pkg_description(pkg)
 
   # Forcing all of the promises for the current namespace now will avoid lazy-load
   # errors when the new package is installed overtop the old one.

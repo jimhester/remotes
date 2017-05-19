@@ -53,10 +53,6 @@ package_deps <- function(pkg, dependencies = NA, repos = getOption("repos"),
 
   repos[repos == "@CRAN@"] <- cran_mirror()
 
-  if (missing(pkg)) {
-    pkg <- as.package(".")$package
-  }
-
   # It is important to not extract available_packages() to a variable,
   # for the case when pkg is empty (e.g., install(dependencies = FALSE) ).
   deps <- sort_ci(find_deps(pkg, available_packages(repos, type), top_dep = dependencies))
@@ -92,11 +88,10 @@ package_deps <- function(pkg, dependencies = NA, repos = getOption("repos"),
 
 #' @export
 #' @rdname package_deps
-dev_package_deps <- function(pkg = ".", dependencies = NA,
+dev_package_deps <- function(pkgdir = ".", dependencies = NA,
                              repos = getOption("repos"),
                              type = getOption("pkgType"),
                              bioconductor = TRUE) {
-  pkg <- as.package(pkg)
 
   repos <- c(repos, parse_additional_repositories(pkg))
 
@@ -201,14 +196,14 @@ split_remotes <- function(x) {
   trim_ws(unlist(strsplit(x, ",[[:space:]]*")))
 }
 
-remote_deps <- function(pkg) {
-  pkg <- as.package(pkg)
+remote_deps <- function(pkgdir) {
+  desc <- load_pkg_description(pkgdir)
 
-  if (!has_dev_remotes(pkg)) {
+  if (!has_dev_remotes(desc)) {
     return(NULL)
   }
 
-  dev_packages <- split_remotes(pkg[["remotes"]])
+  dev_packages <- split_remotes(desc[["remotes"]])
   remote <- lapply(dev_packages, parse_one_remote)
 
   package <- vapply(remote, remote_package_name, character(1), USE.NAMES = FALSE)
@@ -231,10 +226,8 @@ remote_deps <- function(pkg) {
   res
 }
 
-has_dev_remotes <- function(pkg) {
-  pkg <- as.package(pkg)
-
-  !is.null(pkg[["remotes"]])
+has_dev_remotes <- function(desc) {
+  !is.null(desc[["remotes"]])
 }
 
 
@@ -400,17 +393,15 @@ update_packages <- function(pkgs = NULL, dependencies = NA,
   update(pkgs)
 }
 
-has_additional_repositories <- function(pkg) {
-  pkg <- as.package(pkg)
-
-  "additional_repositories" %in% names(pkg)
+has_additional_repositories <- function(desc) {
+  "additional_repositories" %in% names(desc)
 }
 
-parse_additional_repositories <- function(pkg) {
-  pkg <- as.package(pkg)
+parse_additional_repositories <- function(pkgdir) {
+  desc <- load_pkg_description(pkgdir)
 
-  if (has_additional_repositories(pkg)) {
-    strsplit(pkg[["additional_repositories"]], "[,[:space:]]+")[[1]]
+  if (has_additional_repositories(desc)) {
+    strsplit(desc[["additional_repositories"]], "[,[:space:]]+")[[1]]
   }
 }
 

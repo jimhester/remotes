@@ -4,16 +4,15 @@
 \alias{install}
 \title{Install a local development package.}
 \usage{
-install(pkg = ".", reload = TRUE, quick = FALSE, local = TRUE,
+install(pkgdir = ".", reload = TRUE, quick = FALSE, local = TRUE,
   args = getOption("devtools.install.args"), quiet = FALSE,
   dependencies = NA, upgrade_dependencies = TRUE, build_vignettes = FALSE,
   keep_source = getOption("keep.source.pkgs"), threads = getOption("Ncpus",
-  1), force_deps = FALSE, metadata = remote_metadata(as.package(pkg)),
+  1), force_deps = FALSE, metadata = remote_metadata(pkgdir),
   out_dir = NULL, skip_if_log_exists = FALSE, ...)
 }
 \arguments{
-\item{pkg}{package description, can be path or package name.  See
-\code{\link{as.package}} for more information}
+\item{pkgdir}{package directory.}
 
 \item{reload}{if \code{TRUE} (the default), will automatically reload the
 package after installing.}

@@ -57,7 +57,10 @@ remote_metadata.local_remote <- function(x, bundle = NULL, source = NULL) {
 }
 
 #' @export
-remote_metadata.package <- remote_metadata.local_remote
+remote_metadata.character <- function(x) {
+  desc <- load_pkg_description(x)
+  remote_metadata.local_remote(desc)
+}
 
 #' @export
 remote_package_name.local_remote <- function(remote, ...) {

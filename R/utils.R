@@ -65,17 +65,16 @@ file_ext <- function (x) {
     ifelse(pos > -1L, substring(x, pos + 1L), "")
 }
 
-is_bioconductor <- function(x) {
-  x$package != "BiocInstaller" && !is.null(x$biocviews)
+is_bioconductor <- function(desc) {
+  desc$package != "BiocInstaller" && !is.null(desc$biocviews)
 }
 
-is_loaded <- function(pkg = ".") {
-  pkg <- as.package(pkg)
-  pkg$package %in% loadedNamespaces()
+is_loaded <- function(pkgdir = ".") {
+  desc$package %in% loadedNamespaces()
 }
 
-is_installed <- function(pkg, version = 0) {
-  installed_version <- tryCatch(utils::packageVersion(pkg), error = function(e) NA)
+is_installed <- function(pkgname, version = 0) {
+  installed_version <- tryCatch(utils::packageVersion(pkgname), error = function(e) NA)
   !is.na(installed_version) && installed_version >= version
 }
 

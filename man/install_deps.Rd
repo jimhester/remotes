@@ -12,8 +12,8 @@ install_deps(pkg = ".", dependencies = NA, threads = getOption("Ncpus",
 install_dev_deps(pkg = ".", ...)
 }
 \arguments{
-\item{pkg}{package description, can be path or package name.  See
-\code{\link{as.package}} for more information}
+\item{pkg}{A character vector of package names. If missing, defaults to
+the name of the package in the current directory.}
 
 \item{dependencies}{\code{logical} indicating to also install uninstalled
 packages which this \code{pkg} depends on/links to/suggests. See
