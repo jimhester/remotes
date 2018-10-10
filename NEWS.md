@@ -1,4 +1,5 @@
-# Breaking Changes
+# remotes 2.0.0.9000
+## Breaking changes
 
 * `install_github()`'s previously deprecated `username` argument has been
   removed. (#142)
@@ -9,7 +10,7 @@
 * `install_git()`'s `branch` argument has been renamed to `ref` and `branch`
   has been deprecated.
 
-# Development
+## Features and bugfixes
 
 * `install_()*` functions now temporally put Rtools on the PATH when necessary,
   as long as the pkgbuild package is installed.
@@ -68,12 +69,12 @@ installation. (#135)
 
 * `install_url()` can now install package binaries on windows (r-lib/devtools#1765)
 
-# 1.1.1
+# remotes 1.1.1
 
 * Accept HTTPS, SSH, or various browser URLs in GitHub repo specification,
   @jennybc, #90, #109, #112
 
-# 1.1.0
+# remotes 1.1.0
 
 * URL encode GitHub references, to allow installing from non-alphanumeric
   branch or tags, @krlmlr #38
@@ -92,6 +93,6 @@ installation. (#135)
 
 * Updated BioConductor repo URLs for newer BioC versions
 
-# 1.0.0
+# remotes 1.0.0
 
 First public release.
