@@ -1,8 +1,12 @@
 
 # devel
 
+* The dialog when `upgrade = "ask"` now has a 'CRAN only' option, to update
+  only CRAN packages.
+
 * No longer include project specific .Rprofile code in the temporary .Rprofile when
   `R_REMOTES_NO_ERRORS_FROM_WARNINGS=false` (the default).
+
 * `update.package_deps()` no longer prompts to install uninstalled
   dependencies, they are always installed (#203).
 
